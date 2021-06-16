@@ -2,20 +2,22 @@ import random
 
 OPTIONS = ['rock', 'paper', 'scissors']
 
-def human_guess():
+
+def get_human_choice():
     print('(1) Rock\n(2) Paper\n(3) Scissors')
-    choice = OPTIONS[int(input('Enter the number of your choice: ')) - 1]
-    print(f'You chose {choice}')
-    return choice
+    return OPTIONS[int(input('Enter the number of your choice: ')) - 1]
 
 
-def computer_guess():
-    choice = random.choice(OPTIONS)
-    print(f'The computer chose {choice}')
-    return choice
+def get_computer_choice():
+    return random.choice(OPTIONS)
 
 
-def result(human_choice, computer_choice):    
+def print_choices(human_choice, computer_choice):
+    print(f'You chose {human_choice.title()}')
+    print(f'The computer chose {computer_choice.title()}')
+
+
+def eval_game_result(human_choice, computer_choice):    
     if human_choice == computer_choice:
         return 'draw'
     elif human_choice == 'rock':
@@ -26,7 +28,7 @@ def result(human_choice, computer_choice):
         return 'human' if computer_choice == 'paper' else 'computer'
 
 
-def output_message(result, human_choice, computer_choice):
+def compose_output_message(result, human_choice, computer_choice):
     if result == 'draw':
         return 'Draw!'
     elif result == 'human':
@@ -35,11 +37,12 @@ def output_message(result, human_choice, computer_choice):
         return f'Sorry, {computer_choice} beat {human_choice}'
 
 
-def share_result(message):
+def print_result(message):
     print(message)
 
 
-human_choice = human_guess()
-computer_choice = computer_guess()
-game_result = result(human_choice, computer_choice)
-share_result(output_message(game_result, human_choice, computer_choice))
+human_choice = get_human_choice()
+computer_choice = get_computer_choice()
+print_choices(human_choice, computer_choice)
+game_result = eval_game_result(human_choice, computer_choice)
+print_result(compose_output_message(game_result, human_choice, computer_choice))
